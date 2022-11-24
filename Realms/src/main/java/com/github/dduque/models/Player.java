@@ -1,5 +1,7 @@
 package com.github.dduque.models;
 
+import com.github.dduque.IO.Dialogue;
+
 import java.util.Scanner;
 
 public class Player
@@ -11,13 +13,20 @@ public class Player
     public String getName(){return name;}
     public void setName(String name){this.name = name;}
     public String getArchetype(){return archetype;}
-    public void setArchetype(String archetype){this.archetype = archetype;}
+
+    // For later functionality
     public int getHealth(){return health;}
     public void setHealth(int health){this.health = health;}
 
     public Player()
     {
 
+    }
+
+    public Player(String name, String archetype)
+    {
+        this.name = name;
+        this.archetype = archetype;
     }
 
     public Player(String name, String archetype, int health)
@@ -27,55 +36,55 @@ public class Player
         this.health = health;
     }
 
-    public static void createCharacter()
+    public static Player createCharacter()
     {
         Player player = new Player();
         Scanner input = new Scanner(System.in);
 
-        System.out.println(". . .\n");
-        System.out.println("...And so your journey begins. Although, no journey can begin without a name for the bards to sing of...What do you call yourself? ");
-        String playerName = input.nextLine();
-        player.setName(playerName);
-        System.out.println("...To confirm, your name is... " + player.getName() + "? (Y/N)");
-        String answer = input.nextLine();
+        // confirm & set player name
+        confirmName(player, input);
+        // prompt user to choose an archetype
+        Dialogue.displayArchetypeSelection();
+        String choice = input.nextLine();
+        // set player instance as archetype input
+        player.setArchetype(choice);
+        System.out.println("You chose: " + player.getArchetype());
 
-        confirmName(answer, playerName);
+        return player;
     }
 
-    public static void confirmName(String answer, String name)
+    public static void confirmName(Player player, Scanner input)
     {
-        Player player = new Player();
-        Scanner input = new Scanner(System.in);
+        char confirmation;
+        String playerName;
 
-        boolean isValidInput = answer.equalsIgnoreCase("n") || answer.equalsIgnoreCase("y");
-
-// TODO: set loop to validate user input if not yes or no
-        while (!isValidInput)
+        do
         {
-            System.out.println("Not a valid input.");
-            System.out.println("...To confirm, your name is... " + name + "? (Y/N)");
-            answer = input.nextLine();
-        }
-
-        while (answer.equalsIgnoreCase("n"))
-        {
-            System.out.println("Alright! What do you call yourself? ");
-            String playerName = input.nextLine();
-            player.setName(playerName);
-            System.out.println("...To confirm, your name is... " + player.getName() + "? (Y/N)");
-            answer = input.nextLine();
-
-            while (!isValidInput)
+            System.out.println("What do you call yourself? ");
+            playerName = input.nextLine();
+            do
             {
-                System.out.println("Not a valid input.");
-                System.out.println("...To confirm, your name is... " + player.getName() + "? (Y/N)");
-                answer = input.nextLine();
+                System.out.println("...So, your name is... " + playerName + "? (Y/N)");
+                confirmation = input.nextLine().toLowerCase().charAt(0);
             }
+            while (confirmation != 'n' && confirmation != 'y');
         }
-
-
+        while (confirmation == 'n');
+        player.setName(playerName);
         System.out.println("A glorious name you have chosen!");
     }
 
+    public void setArchetype(String choice)
+    {
+        switch (choice)
+        {
+            case "1": this.archetype = "knight";
+                      break;
+            case "2": this.archetype = "mage";
+                      break;
+            case "3": this.archetype = "rogue";
+                      break;
+        }
+    }
 }
 
