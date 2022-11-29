@@ -1,15 +1,13 @@
 package com.github.dduque.IO;
 
-import com.github.dduque.models.Player;
-
 import java.util.Scanner;
 
-public class Dialogue
+public class UserOutput
 {
     private static Scanner input = new Scanner(System.in);
 
     // Introduction
-    public static void displayIntroduction()
+    public static void displayWelcome()
     {
         System.out.println("\n======");
         System.out.println("REALMS");
@@ -24,11 +22,15 @@ public class Dialogue
 
     public static void displayArchetypeSelection()
     {
-        System.out.println("The vaunted heroes of eld came in many Archetypes: some were knights of furious sword and stalwart shield, others were clever mages weaving destruction incarnate, and then there were the unseen rogues who struck from the shadows!");
+        System.out.println("\nThe vaunted heroes of eld came in many Archetypes: some were knights of furious sword and stalwart shield, others were clever mages weaving destruction incarnate, and then there were the unseen rogues who struck from the shadows!");
         System.out.println("Tell me, were you a [1] Knight, a [2] Mage, or a [3] Rogue? (Enter a number: ");
     }
 
-    // Begin story
+   public static void displayIntroduction()
+   {
+       System.out.println("\nHere is where the stage will be set. The setting of the story shall be introduced and the player will be immersed into the world.");
+       input.nextLine();
+   }
 
 
 }
