@@ -1,6 +1,6 @@
 package com.github.dduque.models;
 
-import com.github.dduque.IO.Dialogue;
+import com.github.dduque.IO.UserOutput;
 
 import java.util.Scanner;
 
@@ -44,7 +44,7 @@ public class Player
         // confirm & set player name
         confirmName(player, input);
         // prompt user to choose an archetype
-        Dialogue.displayArchetypeSelection();
+        UserOutput.displayArchetypeSelection();
         String choice = input.nextLine();
         // set player instance as archetype input
         player.setArchetype(choice);
